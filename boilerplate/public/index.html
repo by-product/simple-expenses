@@ -2,10 +2,40 @@
 
 <html>
     <head>
-        <title>Boilerplate App</title>
+        <title>Notes App</title>
+        <link href="images/favicon.png" rel="icon">
+        <link href="/styles/styles.css" rel="stylesheet">
     </head>
     <body>
-        <h1>Boilerplate</h1>
-        <script src="/scripts/bundle.js"></script>
+        <header class="header">
+            <div class="container">
+                <h1 class="header__title">Notes App</h1>
+                <h2 class="header__subtitle">Take notes and never forget</h2>
+            </div>
+        </header>
+        <div class="actions">
+            <div class="actions__container">
+                <label class="input">
+                    Search: <input id="search-text" type="text" placeholder="Search notes">
+                </label>
+                <select id="filter-by" class="dropdown">
+                    <option value="byEdited">Sort by last edited</option>
+                    <option value="byCreated">Sort by recently created</option>
+                    <option value="alphabectial">Sort alphabetically</option>
+                </select>
+            </div>
+        </div>
+        <div class="container">
+            <div id="notes"></div>
+            <button id="add-note" class="button">Create Note</button>
+            <button id="remove-all" class="button button--secondary">Remove All</button>
+        </div>
+        
+        <script src="/scripts/index-bundle.js"></script>
+        <!--<script src="/scripts/uuidv4-gen.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+        <script src="/scripts/notes-functions.js"></script>
+        <script src="/scripts/notes-app.js"></script>-->
     </body>
 </html>
+
