@@ -52,7 +52,7 @@ const generateExpenseDOM = (expense) => {
 }
 
 
-// render notes 
+// render Expenses 
 const renderExpenses = () => {
     const expensesEl = document.querySelector('#expenses')
     const filters = getFilters()
