@@ -101,6 +101,11 @@ a {
     margin-right: .8rem;
 }
 
+.dropdown--secondary {
+    display: inline;
+    margin-left: 1em;
+}
+
 .button {
     background: #43799c;
     border: none;
@@ -137,6 +142,20 @@ a {
     width: 100%;
 }
 
+.ammount-input {
+    border: 1px solid #DEDFE0;
+    font-size: 2rem;
+    font-weight: 300;
+    display: inline;
+    padding: .8rem;
+}
+
+.checkbox {
+    margin: 0.5rem 0;
+    display: block;
+    align-items: baseline;
+}
+
 .body-input {
     border: 1px solid #DEDFE0;
     font-family: inherit;
@@ -162,13 +181,18 @@ a {
     transition: background .3s ease;
 }
 
+.item-summary {
+    display: flex;
+}
+
 .list-item:hover {
     background: #eeeeee;
 }
 
 .list-item__title {
     font-size: 1.8rem;
-    margin-bottom: .4rem
+    margin-bottom: .4rem;
+    display: inline-block;
 }
 
 .list-item__subtitle {
@@ -176,6 +200,18 @@ a {
     font-size: 1.4rem;
     font-weight: 300;
     font-style: italic;
+}
+
+.list-item__ammount {
+    color: #000000;
+    font-size: 1.8rem;
+    font-weight: 600;
+    font-style: normal;
+    display: inline-block;
+}
+
+.list-item__ammount--negative {
+    color: #ff0000;
 }
 
 .empty-message {
