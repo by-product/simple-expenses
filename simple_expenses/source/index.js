@@ -1,8 +1,10 @@
-import { createExpense } from './expenses.js'
+import { createExpense, getCountryList } from './expenses.js'
 import { renderExpenses } from './views.js'
 import { setFilters } from './filters.js'
 
-renderExpenses()
+getCountryList()
+//renderExpenses()
+
 
 document.querySelector('#add-expense').addEventListener('click', (e) => {
     const id = createExpense()

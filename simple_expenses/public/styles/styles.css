@@ -168,6 +168,12 @@ a {
     width: 100%;
 }
 
+.notification {
+    max-width: 60rem;
+    margin: 1rem auto;
+    padding: 0 1.6rem;
+  }
+
 /* Note List Item */
 
 .list-item {

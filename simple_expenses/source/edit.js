@@ -5,6 +5,7 @@ import { getExpenses, saveExpenses, updateExpense, removeExpense } from './expen
 const titleElement = document.querySelector('#expense-title')
 const detailElement = document.querySelector('#expense-detail')
 const ammountElement = document.querySelector('#expense-ammount')
+const currencyElement = document.querySelector('#expense-currency')
 const incomeElement = document.querySelector('#is-income')
 const removeElement = document.querySelector('#remove-expense')
 const lastUpdated = document.querySelector('#last-updated')
@@ -38,6 +39,14 @@ ammountElement.addEventListener('input', (e) => {
     lastUpdated.textContent = updatedTime(expense.updatedAt)
 })
 
+//update expense currency
+currencyElement.addEventListener('change', (e) => {
+    const expense = updateExpense(expenseID, {
+        currency: e.target.value
+    })
+    lastUpdated.textContent = updatedTime(expense.updatedAt)
+})
+
 //update is-income
 incomeElement.addEventListener('input', (e) => {
     const expense = updateExpense(expenseID, {
@@ -55,6 +64,10 @@ removeElement.addEventListener('click', () => {
 
 document.querySelector('#save-expense').addEventListener('click', (e) => {
     saveExpenses()
+    const saveNoteification = document.createElement('p')
+    saveNoteification.textContent = 'Expense saved!'
+    saveNoteification.classList.add('notification')
+    document.querySelector('body').appendChild(saveNoteification)
 
     //location.assign(`/edit.html#${id}`)
     console.log(getExpenses())

@@ -1,5 +1,6 @@
 import uuidv4 from 'uuid/v4'
 import moment from 'moment'
+import { renderExpenses } from './views.js'
 
 
 //expenses array
@@ -69,7 +70,7 @@ const createExpense = () => {
         title: '',
         detail: '',
         ammount: 0,
-        currency: '',
+        currency: 'GBP',
         createdAt: timestamp,
         updatedAt: timestamp,
         income: false
@@ -108,6 +109,11 @@ const updateExpense = (id, updates) => {
         expense.updatedAt = moment().valueOf()
     }
 
+    if (typeof updates.currency === 'string') {
+        expense.currency = updates.currency.toUpperCase()
+        expense.updatedAt = moment().valueOf()
+    }
+
     if (typeof Number(updates.ammount) === 'number' &&  updates.ammount !== undefined) {
         if (!expense.income) {
             expense.ammount = 0 - updates.ammount
@@ -137,4 +143,81 @@ const updateExpense = (id, updates) => {
 // get expenses
 const getExpenses = () => expenses = getSavedExpenses()
 
-export { saveExpenses, getExpenses, createExpense, sortExpenses, updateExpense, removeExpense }
+
+const getCountryList = async () => {
+    if (getSavedCountries() !== undefined) {
+        renderExpenses()
+    } else {
+        const response = await fetch('http://restcountries.eu/rest/v2/all')
+        
+        if (response.status === 200) {
+            let countryList = await response.json()
+            try {
+                //console.log(countryList)
+                localStorage.setItem('countryList', JSON.stringify(countryList))
+                renderExpenses()
+            } catch (err) {
+                return `There was a problem getting the list of countries. ${err.stack}`
+            }
+    
+        } else {
+            throw new Error(`Something went wrong:- ${response.status} : ${response.statusText}`)
+        }
+        console.log('you have called the countries api')
+    }
+    
+    
+
+}
+
+// check for and read existing saved data
+const getSavedCountries = () => {
+    const countryJSON = localStorage.getItem('countryList')
+
+    try {
+        return countryJSON ? JSON.parse(countryJSON) : undefined
+    } catch (e) {
+        return undefined
+    }
+    
+}
+
+
+// const OLDgetCountry = async (currencyCode) => {
+//     const response = await fetch('http://restcountries.eu/rest/v2/all')
+        
+//     if (response.status === 200) {
+//         const countryList = await response.json()
+//         // const countryDetails = countryList.find((country) => country.alpha2Code === 'GB')
+//         // console.log(countryDetails)
+//         // debugger
+//         const countryDetails = countryList.find((country) => country.currencies.find((currency) => currency.code === currencyCode))
+
+//         try {
+//             //console.log(countryDetails)
+//             return countryDetails
+//         } catch (err) {
+//             return `Country code ${currencyCode} does not exist. ${err.stack}`
+//         }
+
+//     } else {
+//         throw new Error(`Something went wrong:- ${response.status} : ${response.statusText}`)
+//     }
+  
+// }
+
+const getCountry = async (currencyCode) => {
+
+        const countryDetails = getSavedCountries().find((country) => country.currencies.find((currency) => currency.code === currencyCode))
+
+        try {
+            //console.log(countryDetails)
+            return countryDetails
+        } catch (err) {
+            return `Country code ${currencyCode} does not exist. ${err.stack}`
+        }
+
+  
+}
+
+export { saveExpenses, getExpenses, createExpense, sortExpenses, updateExpense, removeExpense, getCountry, getCountryList }
