@@ -148,7 +148,7 @@ const getCountryList = async () => {
     if (getSavedCountries() !== undefined) {
         renderExpenses()
     } else {
-        const response = await fetch('http://restcountries.eu/rest/v2/all')
+        const response = await fetch('https://restcountries.eu/rest/v2/all')
         
         if (response.status === 200) {
             let countryList = await response.json()
