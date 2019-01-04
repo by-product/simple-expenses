@@ -1,4 +1,5 @@
 import { getExpenses, sortExpenses, getCountry } from './expenses.js'
+import { sumGBPTotal, sumUSDTotal, sumEURTotal, sumGBPIncome, sumUSDIncome, sumEURIncome, sumGBPExpense, sumUSDExpense, sumEURExpense } from './expense-calc.js'
 import { getFilters } from './filters.js'
 import moment from 'moment'
 
@@ -71,21 +72,169 @@ const generateExpenseDOM = (expense) => {
     return expenseElement
 }
 
+// generate the DOM structure for the totals
+const generateTotalsDOM = () => {
+    const totalsElement = document.createElement('div')
+    const gbpTotal = document.createElement('div')
+    const usdTotal = document.createElement('div')
+    const eurTotal = document.createElement('div')
+    const gTotal = document.createElement('p')
+    const uTotal = document.createElement('p')
+    const eTotal = document.createElement('p')
+    const flavourText1 = document.createElement('p')
+    const flavourText2 = document.createElement('p')
+    const flavourText3 = document.createElement('p')
+    const flavourText4 = document.createElement('p')
+
+    //get combioned totals
+    //set flavour text - combined total
+    flavourText1.textContent = 'Totals'
+    flavourText1.classList.add('list-item__totals--header')
+    totalsElement.appendChild(flavourText1)
+    flavourText2.textContent = 'GBP (£)'
+    flavourText2.classList.add('list-item__currency--bold')
+    gbpTotal.appendChild(flavourText2)
+    flavourText3.textContent = 'USD ($)'
+    flavourText3.classList.add('list-item__currency--bold')
+    usdTotal.appendChild(flavourText3)
+    flavourText4.textContent = 'EUR (€)'
+    flavourText4.classList.add('list-item__currency--bold')
+    eurTotal.appendChild(flavourText4)
+
+    //get Combined Totals
+    gTotal.textContent = sumGBPTotal()
+    gbpTotal.appendChild(gTotal)
+    uTotal.textContent =  sumUSDTotal()
+    usdTotal.appendChild(uTotal)
+    eTotal.textContent = sumEURTotal()
+    eurTotal.appendChild(eTotal)
+
+    //set display of combined totals
+    totalsElement.appendChild(gbpTotal)
+    totalsElement.appendChild(usdTotal)
+    totalsElement.appendChild(eurTotal)
+    totalsElement.classList.add('list-item__totals')
+
+    //get income only
+    const incomeTotalsElement = generateIncomeTotalsDOM()
+    totalsElement.appendChild(incomeTotalsElement)
+
+    //get expenses only
+    const expenseTotalsElement = generateExpenseTotalsDOM()
+    totalsElement.appendChild(expenseTotalsElement)
+
+        
+    return totalsElement
+}
+
+const generateIncomeTotalsDOM = () => {
+    const incomeElement = document.createElement('div')
+    const gbpIncome = document.createElement('div')
+    const usdIncome = document.createElement('div')
+    const eurIncome = document.createElement('div')
+    const gIncome = document.createElement('p')
+    const uIncome = document.createElement('p')
+    const eIncome = document.createElement('p')
+    const flavourText1 = document.createElement('p')
+    const flavourText2 = document.createElement('p')
+    const flavourText3 = document.createElement('p')
+    const flavourText4 = document.createElement('p')
+
+
+    //set flavour text - income total
+    flavourText1.textContent = 'Income'
+    flavourText1.classList.add('list-item__totals--header',)
+    incomeElement.appendChild(flavourText1)
+    flavourText2.textContent = 'GBP (£)'
+    flavourText2.classList.add('list-item__currency--bold')
+    gbpIncome.appendChild(flavourText2)
+    flavourText3.textContent = 'USD ($)'
+    flavourText3.classList.add('list-item__currency--bold')
+    usdIncome.appendChild(flavourText3)
+    flavourText4.textContent = 'EUR (€)'
+    flavourText4.classList.add('list-item__currency--bold')
+    eurIncome.appendChild(flavourText4)
+
+    //get Income Totals
+    gIncome.textContent = sumGBPIncome()
+    gbpIncome.appendChild(gIncome)
+    uIncome.textContent =  sumUSDIncome()
+    usdIncome.appendChild(uIncome)
+    eIncome.textContent = sumEURIncome()
+    eurIncome.appendChild(eIncome)
+
+    //set display of income totals
+    incomeElement.appendChild(gbpIncome)
+    incomeElement.appendChild(usdIncome)
+    incomeElement.appendChild(eurIncome)
+    incomeElement.classList.add('list-item__totals')
+
+    return incomeElement
+}
+
+const generateExpenseTotalsDOM = () => {
+    const expenseElement = document.createElement('div')
+    const gbpExpense = document.createElement('div')
+    const usdExpense = document.createElement('div')
+    const eurExpense = document.createElement('div')
+    const gExpense = document.createElement('p')
+    const uExpense = document.createElement('p')
+    const eExpense = document.createElement('p')
+    const flavourText1 = document.createElement('p')
+    const flavourText2 = document.createElement('p')
+    const flavourText3 = document.createElement('p')
+    const flavourText4 = document.createElement('p')
+
+
+    //set flavour text - expense total
+    flavourText1.textContent = 'Expense'
+    flavourText1.classList.add('list-item__totals--header',)
+    expenseElement.appendChild(flavourText1)
+    flavourText2.textContent = 'GBP (£)'
+    flavourText2.classList.add('list-item__currency--bold')
+    gbpExpense.appendChild(flavourText2)
+    flavourText3.textContent = 'USD ($)'
+    flavourText3.classList.add('list-item__currency--bold')
+    usdExpense.appendChild(flavourText3)
+    flavourText4.textContent = 'EUR (€)'
+    flavourText4.classList.add('list-item__currency--bold')
+    eurExpense.appendChild(flavourText4)
+
+    //get Expense Totals
+    gExpense.textContent = sumGBPExpense()
+    gbpExpense.appendChild(gExpense)
+    uExpense.textContent =  sumUSDExpense()
+    usdExpense.appendChild(uExpense)
+    eExpense.textContent = sumEURExpense()
+    eurExpense.appendChild(eExpense)
+
+    //set display of expense totals
+    expenseElement.appendChild(gbpExpense)
+    expenseElement.appendChild(usdExpense)
+    expenseElement.appendChild(eurExpense)
+    expenseElement.classList.add('list-item__totals')
+
+    return expenseElement
+}
 
 // render Expenses 
 const renderExpenses = () => {
     const expensesEl = document.querySelector('#expenses')
+    const totalsEl = document.querySelector('#totals')
     const filters = getFilters()
     const expenses = sortExpenses(filters.sortBy)  
     const filterdExpenses = expenses.filter((expense) => expense.title.toLowerCase().includes(filters.searchText.toLowerCase()))
 
     expensesEl.innerHTML = ''
+    totalsEl.innerHTML = ''
 
     if (filterdExpenses.length > 0) {
         filterdExpenses.forEach((expense) => {
             const expenseElement = generateExpenseDOM(expense)
             expensesEl.appendChild(expenseElement)
         })
+        const totalsElement = generateTotalsDOM()
+        totalsEl.appendChild(totalsElement)
     } else {
         const emptyMessage = document.createElement('p')
         emptyMessage.classList.add('empty-message')
@@ -129,4 +278,4 @@ const initialiseEditPage = (expenseID) => {
 
 
 
-export { updatedTime, initialiseEditPage, renderExpenses }
+export { updatedTime, initialiseEditPage, renderExpenses, generateTotalsDOM}

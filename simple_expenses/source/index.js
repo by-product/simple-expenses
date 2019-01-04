@@ -1,4 +1,4 @@
-import { createExpense, getCountryList } from './expenses.js'
+import { createExpense, getCountryList, getExpenses } from './expenses.js'
 import { renderExpenses } from './views.js'
 import { setFilters } from './filters.js'
 
@@ -27,3 +27,5 @@ document.querySelector('#filter-by').addEventListener('change', (e) => {
     })
     renderExpenses()
 })
+
+
