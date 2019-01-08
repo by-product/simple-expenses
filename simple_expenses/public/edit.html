@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Simple Expenses - edit</title>
+        <link href="images/favicon.png" rel="icon">
+        <link href="/styles/styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="header">
+            <div class="container">
+                <h1 class="header__title">Simple Expenses</h1>
+                <h2 class="header__subtitle">Making tracking your expenses simpler</h2>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="actions__container actions__container--spaced">
+                <a href="/index.html">Home</a>
+                <span id="last-updated"></span>
+            </div>
+        </div>
+        <div class="container">
+            <input id="expense-title" class="title-input" placeholder="Expense title">
+            <input id="expense-ammount" class="ammount-input" placeholder="ammount" type="number">
+            <select id="expense-currency" class="dropdown dropdown--secondary">
+                <option value="gbp">GBP</option>
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
+            </select>
+            <label class="checkbox">
+                <input id="is-income" type="checkbox"> Is income?
+            </label>
+            <textarea id="expense-detail" class="body-input" placeholder="Expense details (optional)"></textarea>
+            <button id="save-expense" class="button">Save Expense</button>
+            <button id="remove-expense" class="button button--secondary">Remove Expense</button>
+        </div>
+        <script src="/scripts/edit-bundle.js"></script>
+    </body>
+</html>
