@@ -14,7 +14,7 @@
     "babel-loader": "^7.1.4",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "live-server": "^1.2.0",
+    "live-server": "^1.2.1",
     "moment": "^2.22.1",
     "uuid": "^3.2.1",
     "webpack": "^4.28.3",
